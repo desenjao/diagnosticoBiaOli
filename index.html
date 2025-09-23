@@ -24,6 +24,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove highlight ao tocar */
+}
+
+html {
+    font-size: 16px; /* Garante tamanho de fonte consistente */
+    -webkit-text-size-adjust: 100%; /* Previne zoom automático no iOS */
+    text-size-adjust: 100%; /* Previne zoom automático em outros dispositivos */
 }
 
 body {
@@ -31,12 +38,15 @@ body {
     color: var(--text);
     line-height: 1.6;
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF8C00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    touch-action: manipulation; /* Melhora a responsividade do toque */
+    min-height: 100vh;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 15px;
+    width: 100%;
 }
 
 header {
@@ -61,7 +71,7 @@ header::before {
 }
 
 .logo {
-    font-size: 20px;
+    font-size: clamp(18px, 4vw, 20px); /* Tamanho de fonte responsivo */
     font-weight: 800;
     color: var(--primary);
     margin-bottom: 8px;
@@ -74,15 +84,16 @@ header::before {
 h1 {
     color: var(--primary);
     margin-bottom: 8px;
-    font-size: 24px;
+    font-size: clamp(22px, 5vw, 32px); /* Tamanho responsivo */
     background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: 1.2;
 }
 
 .subtitle {
     color: var(--text);
-    font-size: 16px;
+    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
     margin-bottom: 15px;
     max-width: 100%;
     margin-left: auto;
@@ -100,7 +111,7 @@ h1 {
     border-radius: 50px;
     font-weight: 600;
     margin-top: 12px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Tamanho responsivo */
 }
 
 .progress-container {
@@ -118,7 +129,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    font-size: 14px;
+    font-size: clamp(13px, 3vw, 14px); /* Tamanho responsivo */
 }
 
 .progress-bar {
@@ -159,7 +170,7 @@ h1 {
 }
 
 .section-title {
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 18px); /* Tamanho responsivo */
     color: var(--primary);
     margin: 0 0 15px 0;
     padding-bottom: 8px;
@@ -178,13 +189,14 @@ label {
     margin-bottom: 6px;
     font-weight: 600;
     color: var(--dark);
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
 }
 
 .required {
     color: #ef4444;
 }
 
+/* CORREÇÃO PRINCIPAL: Inputs otimizados para mobile */
 input[type="text"],
 textarea,
 select {
@@ -192,8 +204,24 @@ select {
     padding: 12px;
     border: 2px solid var(--gray);
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px; /* Tamanho mínimo para evitar zoom no iOS */
     transition: all 0.3s;
+    -webkit-appearance: none; /* Remove estilos padrão do iOS */
+    appearance: none;
+}
+
+/* Corrige o zoom no iOS */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    textarea,
+    select {
+        font-size: 16px; /* Impede zoom automático no iOS */
+        min-height: 44px; /* Tamanho mínimo de toque recomendado */
+    }
+    
+    textarea {
+        min-height: 120px; /* Altura mínima maior para textareas */
+    }
 }
 
 input[type="text"]:focus,
@@ -223,7 +251,12 @@ textarea {
     cursor: pointer;
     transition: all 0.3s;
     text-align: center;
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
+    min-height: 44px; /* Tamanho mínimo de toque */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .option-card:hover {
@@ -251,10 +284,10 @@ textarea {
 }
 
 .btn {
-    padding: 12px 20px;
+    padding: 14px 20px; /* Padding maior para melhor toque */
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
@@ -263,6 +296,8 @@ textarea {
     justify-content: center;
     gap: 6px;
     width: 100%;
+    min-height: 44px; /* Tamanho mínimo de toque */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
@@ -310,7 +345,7 @@ footer {
     margin-top: 30px;
     padding: 15px;
     color: var(--text);
-    font-size: 12px;
+    font-size: clamp(11px, 3vw, 12px); /* Tamanho responsivo */
 }
 
 .confirmation {
@@ -327,7 +362,7 @@ footer {
 .confirmation h2 {
     color: var(--success);
     margin-bottom: 12px;
-    font-size: 20px;
+    font-size: clamp(18px, 4vw, 20px); /* Tamanho responsivo */
 }
 
 .loading {
@@ -353,13 +388,13 @@ footer {
     padding: 15px;
     margin: 15px 0;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
 }
 
 .diagnostic-result h3 {
     color: var(--primary);
     margin-bottom: 12px;
-    font-size: 16px;
+    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
 }
 
 .problem-item {
@@ -368,13 +403,13 @@ footer {
     margin: 8px 0;
     border-radius: 6px;
     border-left: 2px solid var(--warning);
-    font-size: 13px;
+    font-size: clamp(12px, 3vw, 13px); /* Tamanho responsivo */
 }
 
 .problem-item h4 {
     color: var(--dark);
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
 }
 
 .next-step {
@@ -382,15 +417,16 @@ footer {
     padding: 12px;
     border-radius: 6px;
     margin-top: 15px;
-    font-size: 14px;
+    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
 }
 
 .next-step h4 {
     color: var(--primary);
     margin-bottom: 8px;
-    font-size: 15px;
+    font-size: clamp(14px, 3.5vw, 15px); /* Tamanho responsivo */
 }
 
+/* Media Queries otimizadas */
 @media (min-width: 601px) {
     .container {
         padding: 20px;
@@ -399,14 +435,6 @@ footer {
     header {
         padding: 30px 20px;
         margin-bottom: 30px;
-    }
-    
-    h1 {
-        font-size: 32px;
-    }
-    
-    .subtitle {
-        font-size: 18px;
     }
     
     .options-grid {
@@ -420,6 +448,7 @@ footer {
     
     .btn {
         width: auto;
+        min-width: 120px;
     }
 }
 
@@ -432,17 +461,28 @@ footer {
         padding: 15px;
     }
     
-    h1 {
-        font-size: 22px;
-    }
-    
-    .section-title {
-        font-size: 16px;
-    }
-    
     .btn {
-        padding: 10px 15px;
-        font-size: 13px;
+        padding: 12px 15px;
+    }
+}
+
+/* Melhorias específicas para dispositivos móveis */
+@media (max-width: 768px) {
+    body {
+        -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
+    }
+    
+    .container {
+        padding: 12px;
+    }
+    
+    .form-container {
+        padding: 18px;
+    }
+    
+    /* Garante que elementos interativos sejam fáceis de tocar */
+    input, button, select, textarea, .option-card {
+        touch-action: manipulation;
     }
 }
     </style>
@@ -483,9 +523,10 @@ footer {
                         <label for="nome_completo">Nome completo <span class="required">*</span></label>
                         <input type="text" id="nome_completo" name="nome_completo" required placeholder="Seu nome completo">
                     </div>
+
                     <div class="form-group">
                         <label for="email">Seu melhor email *</label>
-                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        <input type="text" id="email" name="email" required placeholder="seu@email.com">
                     </div>
                     
                     <div class="form-group">
