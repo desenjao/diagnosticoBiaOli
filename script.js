@@ -3,7 +3,7 @@ const totalSections = 13;
 const formData = {};
 
 function updateProgress() {
-    const percentage = Math.round((currentSection / totalSections) * 100);
+    const percentage = Math.round((currentSection / totalSections) * 99);
     document.getElementById('progress-percentage').textContent = `${percentage}%`;
     document.getElementById('progress-fill').style.width = `${percentage}%`;
     document.getElementById('current-question').textContent = currentSection;
