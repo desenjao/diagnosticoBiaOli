@@ -1,5 +1,5 @@
 // Configuração global
-const API_BASE_URL = "http://localhost:3000/api"
+const API_BASE_URL = "https://serverbiaoli.onrender.com/api"
 let currentSection = 1
 const totalSections = 4
 const formData = {}
