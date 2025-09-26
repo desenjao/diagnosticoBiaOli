@@ -7,538 +7,541 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-    --primary: #FF8C00;
-    --primary-light: #FFA500;
-    --primary-gradient: linear-gradient(135deg, #FF8C00 0%, #FF6347 100%);
-    --secondary: #FFF3CD;
-    --dark: #1F2937;
-    --light: #F9FAFB;
-    --gray: #E5E7EB;
-    --text: #374151;
-    --success: #10B981;
-    --warning: #F59E0B;
-}
+            --primary: #FF8C00;
+            --primary-light: #FFA500;
+            --primary-gradient: linear-gradient(135deg, #FF8C00 0%, #FF6347 100%);
+            --secondary: #FFF3CD;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --gray: #E5E7EB;
+            --text: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    -webkit-tap-highlight-color: transparent; /* Remove highlight ao tocar */
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-html {
-    font-size: 16px; /* Garante tamanho de fonte consistente */
-    -webkit-text-size-adjust: 100%; /* Previne zoom automático no iOS */
-    text-size-adjust: 100%; /* Previne zoom automático em outros dispositivos */
-}
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
 
-body {
-    background-color: #fff8f0;
-    color: var(--text);
-    line-height: 1.6;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF8C00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    touch-action: manipulation; /* Melhora a responsividade do toque */
-    min-height: 100vh;
-}
+        body {
+            background-color: #fff8f0;
+            color: var(--text);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF8C00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            touch-action: manipulation;
+            min-height: 100vh;
+        }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 15px;
-    width: 100%;
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            width: 100%;
+        }
 
-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 25px 15px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-}
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 25px 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-gradient);
-}
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
 
-.logo {
-    font-size: clamp(18px, 4vw, 20px); /* Tamanho de fonte responsivo */
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
+        .logo {
+            font-size: clamp(18px, 4vw, 20px);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-h1 {
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-size: clamp(22px, 5vw, 32px); /* Tamanho responsivo */
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.2;
-}
+        h1 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: clamp(22px, 5vw, 32px);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
 
-.subtitle {
-    color: var(--text);
-    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
-    margin-bottom: 15px;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.4;
-}
+        .subtitle {
+            color: var(--text);
+            font-size: clamp(14px, 3.5vw, 16px);
+            margin-bottom: 15px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
 
-.reward-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--secondary);
-    color: var(--dark);
-    padding: 8px 16px;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-top: 12px;
-    font-size: clamp(12px, 3vw, 14px); /* Tamanho responsivo */
-}
+        .reward-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: clamp(12px, 3vw, 14px);
+        }
 
-.progress-container {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+        .progress-container {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-.progress-text {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
-    font-size: clamp(13px, 3vw, 14px); /* Tamanho responsivo */
-}
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: clamp(13px, 3vw, 14px);
+        }
 
-.progress-bar {
-    height: 10px;
-    background: var(--gray);
-    border-radius: 8px;
-    overflow: hidden;
-}
+        .progress-bar {
+            height: 10px;
+            background: var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-.progress-fill {
-    height: 100%;
-    background: var(--primary-gradient);
-    border-radius: 8px;
-    width: 0%;
-    transition: width 0.5s ease;
-}
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
 
-.form-container {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-.form-section {
-    display: none;
-    animation: fadeIn 0.5s ease;
-}
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
 
-.form-section.active {
-    display: block;
-}
+        .form-section.active {
+            display: block;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.section-title {
-    font-size: clamp(16px, 4vw, 18px); /* Tamanho responsivo */
-    color: var(--primary);
-    margin: 0 0 15px 0;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--gray);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+        .section-title {
+            font-size: clamp(16px, 4vw, 18px);
+            color: var(--primary);
+            margin: 0 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.form-group {
-    margin-bottom: 20px;
-}
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: var(--dark);
-    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
-}
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
 
-.required {
-    color: #ef4444;
-}
+        .required {
+            color: #ef4444;
+        }
 
-/* CORREÇÃO PRINCIPAL: Inputs otimizados para mobile */
-input[type="text"],
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--gray);
-    border-radius: 8px;
-    font-size: 16px; /* Tamanho mínimo para evitar zoom no iOS */
-    transition: all 0.3s;
-    -webkit-appearance: none; /* Remove estilos padrão do iOS */
-    appearance: none;
-}
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
 
-/* Corrige o zoom no iOS */
-@media screen and (max-width: 768px) {
-    input[type="text"],
-    textarea,
-    select {
-        font-size: 16px; /* Impede zoom automático no iOS */
-        min-height: 44px; /* Tamanho mínimo de toque recomendado */
-    }
-    
-    textarea {
-        min-height: 120px; /* Altura mínima maior para textareas */
-    }
-}
+        @media screen and (max-width: 768px) {
+            input[type="text"],
+            input[type="email"],
+            textarea,
+            select {
+                font-size: 16px;
+                min-height: 44px;
+            }
 
-input[type="text"]:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
-}
+            textarea {
+                min-height: 120px;
+            }
+        }
 
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+        }
 
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 12px;
-}
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
 
-.option-card {
-    border: 2px solid var(--gray);
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
-    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
-    min-height: 44px; /* Tamanho mínimo de toque */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
 
-.option-card:hover {
-    border-color: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-}
+        .option-card {
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: clamp(13px, 3.5vw, 14px);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
 
-.option-card.selected {
-    border-color: var(--primary);
-    background-color: rgba(255, 140, 0, 0.05);
-}
+        .option-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.option-card i {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: var(--primary);
-}
+        .option-card.selected {
+            border-color: var(--primary);
+            background-color: rgba(255, 140, 0, 0.05);
+        }
 
-.nav-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 25px;
-}
+        .option-card i {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
 
-.btn {
-    padding: 14px 20px; /* Padding maior para melhor toque */
-    border: none;
-    border-radius: 8px;
-    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    min-height: 44px; /* Tamanho mínimo de toque */
-    -webkit-tap-highlight-color: transparent;
-}
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+        }
 
-.btn-primary {
-    background: var(--primary-gradient);
-    color: white;
-}
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-.btn-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-}
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
 
-.btn-outline {
-    background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-}
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.btn-outline:hover {
-    background: var(--primary);
-    color: white;
-}
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
 
-.btn-disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
 
-.counter {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 25px;
-    height: 25px;
-    background: var(--primary);
-    color: white;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
-}
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding: 15px;
-    color: var(--text);
-    font-size: clamp(11px, 3vw, 12px); /* Tamanho responsivo */
-}
+        .counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-.confirmation {
-    text-align: center;
-    padding: 30px 15px;
-}
+        .loading {
+            text-align: center;
+            padding: 30px 15px;
+        }
 
-.confirmation i {
-    font-size: 45px;
-    color: var(--success);
-    margin-bottom: 15px;
-}
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
 
-.confirmation h2 {
-    color: var(--success);
-    margin-bottom: 12px;
-    font-size: clamp(18px, 4vw, 20px); /* Tamanho responsivo */
-}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-.loading {
-    text-align: center;
-    padding: 30px 15px;
-}
+        .diagnostic-result {
+            background: #f8f9fa;
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
 
-.loading i {
-    font-size: 45px;
-    color: var(--primary);
-    margin-bottom: 15px;
-    animation: spin 2s linear infinite;
-}
+        .diagnostic-result h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        .problem-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 2px solid var(--warning);
+            font-size: clamp(12px, 3vw, 13px);
+        }
 
-.diagnostic-result {
-    background: #f8f9fa;
-    border-left: 3px solid var(--primary);
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 6px;
-    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
-}
+        .problem-item h4 {
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
 
-.diagnostic-result h3 {
-    color: var(--primary);
-    margin-bottom: 12px;
-    font-size: clamp(14px, 3.5vw, 16px); /* Tamanho responsivo */
-}
+        .next-step {
+            background: var(--secondary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
 
-.problem-item {
-    background: white;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border-left: 2px solid var(--warning);
-    font-size: clamp(12px, 3vw, 13px); /* Tamanho responsivo */
-}
+        .next-step h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: clamp(14px, 3.5vw, 15px);
+        }
 
-.problem-item h4 {
-    color: var(--dark);
-    margin-bottom: 6px;
-    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
-}
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #c33;
+        }
 
-.next-step {
-    background: var(--secondary);
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 15px;
-    font-size: clamp(13px, 3.5vw, 14px); /* Tamanho responsivo */
-}
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: var(--text);
+            font-size: clamp(11px, 3vw, 12px);
+        }
 
-.next-step h4 {
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-size: clamp(14px, 3.5vw, 15px); /* Tamanho responsivo */
-}
+        @media (min-width: 601px) {
+            .container {
+                padding: 20px;
+            }
 
-/* Media Queries otimizadas */
-@media (min-width: 601px) {
-    .container {
-        padding: 20px;
-    }
-    
-    header {
-        padding: 30px 20px;
-        margin-bottom: 30px;
-    }
-    
-    .options-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-    
-    .nav-buttons {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    .btn {
-        width: auto;
-        min-width: 120px;
-    }
-}
+            header {
+                padding: 30px 20px;
+                margin-bottom: 30px;
+            }
 
-@media (max-width: 400px) {
-    .container {
-        padding: 10px;
-    }
-    
-    .form-container {
-        padding: 15px;
-    }
-    
-    .btn {
-        padding: 12px 15px;
-    }
-}
+            .options-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
 
-/* Melhorias específicas para dispositivos móveis */
-@media (max-width: 768px) {
-    body {
-        -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
-    }
-    
-    .container {
-        padding: 12px;
-    }
-    
-    .form-container {
-        padding: 18px;
-    }
-    
-    /* Garante que elementos interativos sejam fáceis de tocar */
-    input, button, select, textarea, .option-card {
-        touch-action: manipulation;
-    }
-}
+            .nav-buttons {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .btn {
+                width: auto;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            .form-container {
+                padding: 15px;
+            }
+
+            .btn {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .form-container {
+                padding: 18px;
+            }
+
+            input,
+            button,
+            select,
+            textarea,
+            .option-card {
+                touch-action: manipulation;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="logo">
                 <i class="fas fa-rocket"></i>
-                <span>Mentoria Impulso</span>
+                <span>Mentoria BiaOli</span>
             </div>
             <h1>Diagnóstico Estratégico: Instagram & Vendas</h1>
             <p class="subtitle">Descubra em poucos minutos quais são as maiores oportunidades para alavancar suas vendas pelo Instagram!</p>
             <div class="reward-badge">
                 <i class="fas fa-gift"></i>
-                <span>Ao completar, você receberá um diagnóstico personalizado</span>
+                <span>Ao completar, você receberá uma Pré-Análise personalizado</span>
             </div>
         </header>
-        
+
         <div class="progress-container">
             <div class="progress-text">
                 <span>Progresso: <span id="progress-percentage">0%</span></span>
-                <span>Pergunta <span id="current-question">1</span> de 13</span>
+                <span>Etapa <span id="current-step">1</span> de <span id="total-steps">4</span></span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
         </div>
-        
+
         <div class="form-container">
             <form id="diagnostic-form">
-                <!-- Seção 1: Informações básicas (3 primeiras perguntas) -->
+                <!-- Seção 1: Informações Básicas -->
                 <div class="form-section active" id="section-1">
                     <h2 class="section-title"><span class="counter">1</span> Informações Básicas</h2>
-                    
-                    <!-- Agrupando as 3 primeiras perguntas em uma única seção -->
+
                     <div class="form-group">
                         <label for="nome_completo">Nome completo <span class="required">*</span></label>
                         <input type="text" id="nome_completo" name="nome_completo" required placeholder="Seu nome completo">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Seu melhor email *</label>
-                        <input type="text" id="email" name="email" required placeholder="seu@email.com">
+                        <label for="email">Seu melhor email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="nome_empresa">Nome da empresa/marca <span class="required">*</span></label>
                         <input type="text" id="nome_empresa" name="nome_empresa" required placeholder="Nome do seu negócio">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="instagram">@ do Instagram da empresa <span class="required">*</span></label>
                         <input type="text" id="instagram" name="instagram" required placeholder="@suaempresa">
                     </div>
-                    
+
                     <div class="nav-buttons">
                         <div></div>
                         <button type="button" class="btn btn-primary" onclick="nextSection()">
@@ -547,11 +550,37 @@ footer {
                     </div>
                 </div>
 
-                <!-- Removendo as seções 2 e 3 separadas e renumerando a seção 4 para seção 2 -->
-                <!-- Seção 2: Principal desafio -->
+                <!-- Seção 2: Contexto do Negócio -->
                 <div class="form-section" id="section-2">
-                    <h2 class="section-title"><span class="counter">2</span> Principal desafio</h2>
-                    
+                    <h2 class="section-title"><span class="counter">2</span> Contexto do Negócio</h2>
+
+                    <div class="form-group">
+                        <label for="nicho">Qual é o seu nicho/área de atuação? <span class="required">*</span></label>
+                        <input type="text" id="nicho" name="nicho" required placeholder="Ex: Moda feminina, Consultoria, Alimentação...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempo_mercado">Há quanto tempo está no mercado? <span class="required">*</span></label>
+                        <select id="tempo_mercado" name="tempo_mercado" required>
+                            <option value="">Selecione...</option>
+                            <option value="menos_6_meses">Menos de 6 meses</option>
+                            <option value="6_meses_1_ano">6 meses a 1 ano</option>
+                            <option value="1_3_anos">1 a 3 anos</option>
+                            <option value="mais_3_anos">Mais de 3 anos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estagio_negocio">Em que estágio está seu negócio? <span class="required">*</span></label>
+                        <select id="estagio_negocio" name="estagio_negocio" required>
+                            <option value="">Selecione...</option>
+                            <option value="iniciante">Iniciante (primeiras vendas)</option>
+                            <option value="crescimento">Crescimento (vendas regulares)</option>
+                            <option value="consolidado">Consolidado (negócio estável)</option>
+                            <option value="expansao">Expansão (escalando)</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label>Qual é o principal desafio que você enfrenta no seu negócio atualmente? <span class="required">*</span></label>
                         <div class="options-grid">
@@ -582,409 +611,72 @@ footer {
                         </div>
                         <input type="hidden" id="principal_desafio" name="principal_desafio" required>
                     </div>
-                    
+
                     <div class="nav-buttons">
                         <button type="button" class="btn btn-outline" onclick="prevSection()">
                             <i class="fas fa-arrow-left"></i> Anterior
                         </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
+                        <button type="button" class="btn btn-primary" onclick="generateDynamicQuestions()">
+                            Próximo <i class="fas fa-magic"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Seção 3: Saúde do estoque -->
+                <!-- Seção 3: Perguntas Dinâmicas -->
                 <div class="form-section" id="section-3">
-                    <h2 class="section-title"><span class="counter">3</span> Saúde do estoque</h2>
-                    
-                    <div class="form-group">
-                        <label>Como você descreveria a SAÚDE DO SEU ESTOQUE atualmente? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'saude_estoque', 'Tenho bastante estoque parado que preciso girar')">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <div>Tenho bastante estoque parado que preciso girar</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'saude_estoque', 'Meu estoque gira em um ritmo constante')">
-                                <i class="fas fa-check-circle"></i>
-                                <div>Meu estoque gira em um ritmo constante</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'saude_estoque', 'Frequentemente fico sem estoque dos produtos mais populares')">
-                                <i class="fas fa-truck-loading"></i>
-                                <div>Frequentemente fico sem estoque dos produtos mais populares</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'saude_estoque', 'Não tenho controle adequado sobre meu estoque')">
-                                <i class="fas fa-clipboard-list"></i>
-                                <div>Não tenho controle adequado sobre meu estoque</div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="saude_estoque" name="saude_estoque" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
+                    <h2 class="section-title"><span class="counter">3</span> Perguntas Personalizadas</h2>
+                    <p style="margin-bottom: 20px; color: #6b7280;">Perguntas específicas para o seu negócio</p>
 
-                <!-- Seção 4: Dificuldade no Instagram -->
-                <div class="form-section" id="section-4">
-                    <h2 class="section-title"><span class="counter">4</span> Dificuldade no Instagram</h2>
-                    
-                    <div class="form-group">
-                        <label>Qual é a sua PRINCIPAL DIFICULDADE relacionada ao Instagram? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'dificuldade_instagram', 'Não consigo gerar engajamento')">
-                                <i class="fas fa-heart"></i>
-                                <div>Não consigo gerar engajamento (poucos comentários/salvamentos)</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'dificuldade_instagram', 'Meus seguidores não se convertem em clientes')">
-                                <i class="fas fa-exchange-alt"></i>
-                                <div>Meus seguidores não se convertem em clientes</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'dificuldade_instagram', 'Não consigo criar conteúdo com constância')">
-                                <i class="fas fa-calendar-times"></i>
-                                <div>Não consigo criar conteúdo com constância</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'dificuldade_instagram', 'Não tenho uma identidade visual definida')">
-                                <i class="fas fa-palette"></i>
-                                <div>Não tenho uma identidade visual definida</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'dificuldade_instagram', 'Não sei como planejar minhas postagens')">
-                                <i class="fas fa-tasks"></i>
-                                <div>Não sei como planejar minhas postagens</div>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-top: 15px;">
-                            <input type="text" id="outra_dificuldade" name="outra_dificuldade" placeholder="Outra dificuldade (opcional)">
-                        </div>
-                        <input type="hidden" id="dificuldade_instagram" name="dificuldade_instagram" required>
+                    <div id="dynamic-questions-container">
+                        <!-- As perguntas serão inseridas aqui automaticamente -->
                     </div>
                     
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
+                    <div id="dynamic-error" class="error" style="display: none;"></div>
 
-                <!-- Seção 5: Tipo de conteúdo -->
-                <div class="form-section" id="section-5">
-                    <h2 class="section-title"><span class="counter">5</span> Tipo de conteúdo</h2>
-                    
-                    <div class="form-group">
-                        <label>Qual tipo de conteúdo você mais POSTA no Instagram? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'tipo_conteudo', 'Produtos isolados (fotos básicas)')">
-                                <i class="fas fa-camera"></i>
-                                <div>Produtos isolados (fotos básicas)</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_conteudo', 'Looks completos/combinações')">
-                                <i class="fas fa-tshirt"></i>
-                                <div>Looks completos/combinações</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_conteudo', 'Processo de criação/produção')">
-                                <i class="fas fa-cogs"></i>
-                                <div>Processo de criação/produção</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_conteudo', 'Dia a dia do negócio')">
-                                <i class="fas fa-business-time"></i>
-                                <div>Dia a dia do negócio</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_conteudo', 'Conteúdo educativo')">
-                                <i class="fas fa-graduation-cap"></i>
-                                <div>Conteúdo educativo (dicas, tendências)</div>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-top: 15px;">
-                            <input type="text" id="outro_conteudo" name="outro_conteudo" placeholder="Outro tipo de conteúdo (opcional)">
-                        </div>
-                        <input type="hidden" id="tipo_conteudo" name="tipo_conteudo" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 6: Frequência de posts -->
-                <div class="form-section" id="section-6">
-                    <h2 class="section-title"><span class="counter">6</span> Frequência de posts</h2>
-                    
-                    <div class="form-group">
-                        <label>Com que FREQUÊNCIA você posta no feed? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'frequencia_posts', 'Diariamente')">
-                                <i class="fas fa-calendar-day"></i>
-                                <div>Diariamente</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'frequencia_posts', '3-4 vezes por semana')">
-                                <i class="fas fa-calendar-week"></i>
-                                <div>3-4 vezes por semana</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'frequencia_posts', '1-2 vezes por semana')">
-                                <i class="fas fa-calendar-alt"></i>
-                                <div>1-2 vezes por semana</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'frequencia_posts', 'Esporadicamente')">
-                                <i class="fas fa-question-circle"></i>
-                                <div>Esporadicamente (não tenho frequência)</div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="frequencia_posts" name="frequencia_posts" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 7: Anúncios pagos -->
-                <div class="form-section" id="section-7">
-                    <h2 class="section-title"><span class="counter">7</span> Anúncios pagos</h2>
-                    
-                    <div class="form-group">
-                        <label>Você já investiu em ANÚNCIOS PAGOS no Instagram? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'anuncios_pagos', 'Sim, e obtive bons resultados')">
-                                <i class="fas fa-thumbs-up"></i>
-                                <div>Sim, e obtive bons resultados</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'anuncios_pagos', 'Sim, mas os resultados não foram satisfatórios')">
-                                <i class="fas fa-thumbs-down"></i>
-                                <div>Sim, mas os resultados não foram satisfatórios</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'anuncios_pagos', 'Não, nunca investi em anúncios')">
-                                <i class="fas fa-times-circle"></i>
-                                <div>Não, nunca investi em anúncios</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'anuncios_pagos', 'Não, porque não sei como funcionam')">
-                                <i class="fas fa-question"></i>
-                                <div>Não, porque não sei como funcionam</div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="anuncios_pagos" name="anuncios_pagos" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 8: Análise de desempenho -->
-                <div class="form-section" id="section-8">
-                    <h2 class="section-title"><span class="counter">8</span> Análise de desempenho</h2>
-                    
-                    <div class="form-group">
-                        <label>Como você analisa o DESEMPENHO das suas postagens? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'analise_desempenho', 'Não analiso métricas')">
-                                <i class="fas fa-ban"></i>
-                                <div>Não analiso métricas</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'analise_desempenho', 'Verifico apenas curtidas e visualizações')">
-                                <i class="fas fa-eye"></i>
-                                <div>Verifico apenas curtidas e visualizações</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'analise_desempenho', 'Analiso insights completos')">
-                                <i class="fas fa-chart-bar"></i>
-                                <div>Analiso insights completos (alcance, engajamento, conversões)</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'analise_desempenho', 'Não sei onde encontrar essas métricas')">
-                                <i class="fas fa-search"></i>
-                                <div>Não sei onde encontrar essas métricas</div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="analise_desempenho" name="analise_desempenho" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 9: Última campanha -->
-                <div class="form-section" id="section-9">
-                    <h2 class="section-title"><span class="counter">9</span> Última campanha de vendas</h2>
-                    
-                    <div class="form-group">
-                        <label for="ultima_campanha">Qual foi sua última CAMPANHA DE VENDAS? Como foi o resultado? <span class="required">*</span></label>
-                        <textarea id="ultima_campanha" name="ultima_campanha" required placeholder="Descreva sua última campanha e os resultados obtidos..."></textarea>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 10: Maiores dúvidas -->
-                <div class="form-section" id="section-10">
-                    <h2 class="section-title"><span class="counter">10</span> Maiores dúvidas</h2>
-                    
-                    <div class="form-group">
-                        <label for="maiores_duvidas">Quais são suas 3 maiores DÚVIDAS sobre gestão de redes sociais? <span class="required">*</span></label>
-                        <textarea id="maiores_duvidas" name="maiores_duvidas" required placeholder="Liste suas 3 principais dúvidas sobre gestão de redes sociais..."></textarea>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 11: Tipo de apoio -->
-                <div class="form-section" id="section-11">
-                    <h2 class="section-title"><span class="counter">11</span> Tipo de apoio necessário</h2>
-                    
-                    <div class="form-group">
-                        <label>Que TIPO DE APOIO você mais precisa para alavancar suas vendas? <span class="required">*</span></label>
-                        <div class="options-grid">
-                            <div class="option-card" onclick="selectOption(this, 'tipo_apoio', 'Estratégias de conteúdo')">
-                                <i class="fas fa-lightbulb"></i>
-                                <div>Estratégias de conteúdo</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_apoio', 'Planejamento de campanhas')">
-                                <i class="fas fa-calendar-check"></i>
-                                <div>Planejamento de campanhas</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_apoio', 'Gestão de tráfego pago')">
-                                <i class="fas fa-bullhorn"></i>
-                                <div>Gestão de tráfego pago</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_apoio', 'Organização e planejamento')">
-                                <i class="fas fa-clipboard-check"></i>
-                                <div>Organização e planejamento</div>
-                            </div>
-                            <div class="option-card" onclick="selectOption(this, 'tipo_apoio', 'Técnicas de vendas')">
-                                <i class="fas fa-handshake"></i>
-                                <div>Técnicas de vendas</div>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-top: 15px;">
-                            <input type="text" id="outro_apoio" name="outro_apoio" placeholder="Outro tipo de apoio (opcional)">
-                        </div>
-                        <input type="hidden" id="tipo_apoio" name="tipo_apoio" required>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 12: Um problema para resolver -->
-                <div class="form-section" id="section-12">
-                    <h2 class="section-title"><span class="counter">12</span> Problema prioritário</h2>
-                    
-                    <div class="form-group">
-                        <label for="problema_prioritario">Se você pudesse resolver apenas UM PROBLEMA do seu negócio agora, qual seria? <span class="required">*</span></label>
-                        <textarea id="problema_prioritario" name="problema_prioritario" required placeholder="Descreva o problema mais urgente do seu negócio..."></textarea>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button type="button" class="btn btn-outline" onclick="prevSection()">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="nextSection()">
-                            Próxima <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Seção 13: Papel das redes sociais -->
-                <div class="form-section" id="section-13">
-                    <h2 class="section-title"><span class="counter">13</span> Papel das redes sociais</h2>
-                    
-                    <div class="form-group">
-                        <label for="papel_redes_sociais">Em suas próprias palavras, como você enxerga o PAPEL DAS REDES SOCIAIS para o seu negócio? <span class="required">*</span></label>
-                        <textarea id="papel_redes_sociais" name="papel_redes_sociais" required placeholder="Descreva como você vê o papel das redes sociais no seu negócio..."></textarea>
-                    </div>
-                    
                     <div class="nav-buttons">
                         <button type="button" class="btn btn-outline" onclick="prevSection()">
                             <i class="fas fa-arrow-left"></i> Anterior
                         </button>
                         <button type="button" class="btn btn-primary" onclick="submitForm()">
-                            Finalizar Diagnóstico <i class="fas fa-check"></i>
+                            Verificar Análise <i class="fas fa-check"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Loading -->
-                <div class="form-section" id="loading">
+                <!-- Seção 4: Loading -->
+                <div class="form-section" id="section-loading">
                     <div class="loading">
-                        <i class="fas fa-spinner"></i>
-                        <h2>Analisando suas respostas...</h2>
-                        <p>Aguarde enquanto geramos seu diagnóstico personalizado.</p>
+                        <div class="spinner"></div>
+                        <h2>Aguarde...</h2>
+                        <p>Estamos analisando suas informações e montando a melhor experiência para você...</p>
                     </div>
                 </div>
 
-                <!-- Resultado do diagnóstico -->
-                <div class="form-section" id="diagnostic-result">
-                    <div class="confirmation">
-                        <i class="fas fa-check-circle"></i>
-                        <h2>Diagnóstico Concluído!</h2>
-                        <p>Aqui está sua análise personalizada:</p>
+                <!-- Seção 5: Resultado -->
+                <div class="form-section" id="section-result">
+                    <div class="diagnostic-result">
+                        <h3><i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i>Diagnóstico Concluído!</h3>
+                        <p style="margin-bottom: 20px;">Aqui está sua análise personalizada:</p>
                         
-                        <div id="diagnostic-content"></div>
-                        
-                        <div style="margin-top: 30px;">
-                            <a href="https://www.instagram.com/biaolip_/" class="btn btn-primary">
-                                 Seguir no Instagram
+                        <div id="diagnostic-content">
+                            <!-- O diagnóstico será inserido aqui -->
+                        </div>
+
+                        <div style="margin-top: 30px; text-align: center;">
+                            <a href="https://www.instagram.com/biaolip_/" class="btn btn-primary" target="_blank">
+                                <i class="fas fa-instagram"></i> Seguir no Instagram
                             </a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        
+
         <footer>
             <p>© 2025 BiaOli - Todos os direitos reservados</p>
-            
         </footer>
     </div>
 
-    <script src="script.js">
-      
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
