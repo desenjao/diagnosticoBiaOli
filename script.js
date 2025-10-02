@@ -4,6 +4,7 @@ let currentSection = 1
 const totalSections = 4
 const formData = {}
 let dynamicQuestions = []
+let questionContext = {} // NOVO: para guardar o contexto das perguntas
 
 // Inicialização
 document.addEventListener("DOMContentLoaded", () => {
@@ -90,7 +91,7 @@ function validateCurrentSection() {
   const requiredInputs = section.querySelectorAll("input[required], select[required], textarea[required]")
   for (const input of requiredInputs) {
     if (!input.value.trim()) {
-      showError(`Por favor, preencha o campo: ${input.previousElementSibling.textContent.replace("*", "").trim()}`)
+      showError(`Por favor, preencha o campo: ${input.previousElementSibling?.textContent?.replace("*", "").trim() || input.placeholder}`)
       input.focus()
       return false
     }
@@ -175,8 +176,8 @@ async function generateDynamicQuestions() {
     return
   }
 
-  // Coletar dados do contexto
-  const contexto = {
+  // Coletar dados do contexto - MODIFICADO: salvar em variável global
+  questionContext = {
     nicho: document.getElementById("nicho").value.trim(),
     tempo_mercado: document.getElementById("tempo_mercado").value,
     segmento: document.getElementById("segmento")?.value || "nao_informado",
@@ -185,7 +186,7 @@ async function generateDynamicQuestions() {
   }
 
   // Validar dados obrigatórios
-  if (!contexto.nicho || !contexto.tempo_mercado || !contexto.estagio_negocio || !contexto.principal_desafio) {
+  if (!questionContext.nicho || !questionContext.tempo_mercado || !questionContext.estagio_negocio || !questionContext.principal_desafio) {
     showError("Por favor, preencha todos os campos antes de continuar.")
     return
   }
@@ -194,7 +195,7 @@ async function generateDynamicQuestions() {
   showSection("section-loading")
 
   try {
-    const queryParams = new URLSearchParams(contexto)
+    const queryParams = new URLSearchParams(questionContext)
     const response = await fetch(`${API_BASE_URL}/perguntas-dinamicas?${queryParams}`)
 
     if (!response.ok) {
@@ -252,7 +253,7 @@ function renderDynamicQuestions() {
                          name="${pergunta.id}" 
                          required 
                          placeholder="Digite sua resposta..."
-                         onchange="formData['${pergunta.id}'] = this.value"></textarea>
+                         oninput="formData['${pergunta.id}'] = this.value"></textarea>
             `
     }
 
@@ -261,32 +262,53 @@ function renderDynamicQuestions() {
   })
 }
 
-// Coleta de dados do formulário
+// Coleta de dados do formulário - MODIFICADO: novo formato
 function collectFormData() {
-  // Coletar dados das seções 1 e 2
+  // Coletar dados básicos das seções 1 e 2
+  const basicData = {}
   const inputs = document.querySelectorAll(
     "#section-1 input, #section-1 textarea, #section-1 select, #section-2 input, #section-2 textarea, #section-2 select",
   )
+  
   inputs.forEach((input) => {
     if (input.value.trim()) {
-      formData[input.name || input.id] = input.value.trim()
+      basicData[input.name || input.id] = input.value.trim()
     }
   })
 
-  // Coletar respostas das perguntas dinâmicas (tipo texto)
-  dynamicQuestions.forEach((pergunta) => {
-    if (pergunta.tipo === "text") {
-      const textarea = document.getElementById(pergunta.id)
-      if (textarea && textarea.value.trim()) {
-        formData[pergunta.id] = textarea.value.trim()
-      }
+  // Coletar respostas das perguntas dinâmicas no novo formato
+  const questionarioCompleto = dynamicQuestions.map((pergunta) => {
+    const respostaUsuario = formData[pergunta.id]
+    
+    // Encontrar o texto da opção selecionada (para single_choice)
+    let respostaTexto = respostaUsuario
+    if (pergunta.tipo === "single_choice" && pergunta.opcoes) {
+      const opcaoSelecionada = pergunta.opcoes.find(op => op.valor === respostaUsuario)
+      respostaTexto = opcaoSelecionada ? opcaoSelecionada.texto : respostaUsuario
+    }
+
+    return {
+      pergunta: pergunta.pergunta,
+      pergunta_id: pergunta.id,
+      tipo: pergunta.tipo,
+      resposta: respostaUsuario,
+      resposta_texto: respostaTexto || respostaUsuario
     }
   })
 
-  return formData
+  // Retornar no formato correto para a API
+  return {
+    // Dados básicos para campos do lead
+    basicData: basicData,
+    // Estrutura para a API
+    apiData: {
+      contexto: questionContext,
+      questionario: questionarioCompleto
+    }
+  }
 }
 
-// Envio do formulário
+// Envio do formulário - MODIFICADO: novo formato
 async function submitForm() {
   if (!validateCurrentSection()) {
     return
@@ -296,22 +318,30 @@ async function submitForm() {
   showSection("section-loading")
 
   try {
-    const data = collectFormData()
+    const collectedData = collectFormData()
+    const basicData = collectedData.basicData
+    const apiData = collectedData.apiData
+
+    // Validar se temos perguntas respondidas
+    const perguntasRespondidas = apiData.questionario.filter(q => q.resposta)
+    if (perguntasRespondidas.length === 0) {
+      throw new Error("Por favor, responda todas as perguntas antes de enviar.")
+    }
 
     const requestBody = {
-      nome: data.nome_completo || "",
-      company: data.nome_empresa || "",
-      instagram: data.instagram || "",
-      email: data.email || "",
-      respostas: data,
+      nome: basicData.nome_completo || "",
+      company: basicData.nome_empresa || "",
+      instagram: basicData.instagram || "",
+      email: basicData.email || "",
+      respostas: apiData // NOVO FORMATO: contexto + questionario
     }
 
     // Validar campos obrigatórios
     if (!requestBody.nome || !requestBody.company || !requestBody.instagram || !requestBody.email) {
-      throw new Error("Preencha todos os campos obrigatórios")
+      throw new Error("Preencha todos os campos obrigatórios: nome, empresa, Instagram e email")
     }
 
-    console.log("Enviando dados:", requestBody)
+    console.log("Enviando dados no novo formato:", requestBody)
 
     const response = await fetch(`${API_BASE_URL}/diagnostico`, {
       method: "POST",
@@ -342,7 +372,7 @@ async function submitForm() {
   }
 }
 
-// Exibição do diagnóstico
+// Exibição do diagnóstico - MELHORADA
 function displayDiagnostic(diagnostic) {
   const content = document.getElementById("diagnostic-content")
   if (!content) return
@@ -359,39 +389,57 @@ function displayDiagnostic(diagnostic) {
 
   let html = `
         <div class="diagnostic-result">
-            <h3><i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-right: 8px;"></i>Principais Problemas Identificados:</h3>
+            <div class="diagnostic-header">
+                <h3><i class="fas fa-chart-line" style="color: var(--primary); margin-right: 8px;"></i>Diagnóstico do Seu Negócio</h3>
+            </div>
     `
 
+  // Problemas principais
   if (diagnostic.problemas_principais && diagnostic.problemas_principais.length > 0) {
+    html += `
+            <div class="problems-section">
+                <h4><i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-right: 8px;"></i>Principais Problemas Identificados:</h4>
+    `
+    
     diagnostic.problemas_principais.forEach((problema, index) => {
-      const explicacao =
-        diagnostic.explicacao && diagnostic.explicacao[problema]
-          ? diagnostic.explicacao[problema]
-          : "Análise detalhada não disponível"
+      const explicacao = diagnostic.explicacao && diagnostic.explicacao[problema] 
+        ? diagnostic.explicacao[problema] 
+        : "Análise detalhada não disponível"
 
       html += `
                 <div class="problem-item">
-                    <h4><i class="fas fa-arrow-right" style="color: var(--primary); margin-right: 6px;"></i>${index + 1}. ${problema}</h4>
+                    <h5>${index + 1}. ${problema}</h5>
                     <p>${explicacao}</p>
                 </div>
             `
     })
-  } else {
+    html += `</div>`
+  }
+
+  // Pontos fortes
+  if (diagnostic.avaliacao) {
     html += `
-            <div class="problem-item">
-                <h4>Análise Geral</h4>
-                <p>Com base nas suas respostas, identificamos oportunidades de melhoria no seu negócio.</p>
+            <div class="strengths-section">
+                <h4><i class="fas fa-star" style="color: var(--success); margin-right: 8px;"></i>Pontos Fortes:</h4>
+                <p>${diagnostic.avaliacao}</p>
             </div>
         `
   }
 
-  html += `
-            <div class="next-step">
-                <h4><i class="fas fa-lightbulb" style="color: var(--success); margin-right: 8px;"></i>Próximo Passo Recomendado:</h4>
-                <p>${diagnostic.proximo_passo || "Considere buscar orientação especializada para desenvolver uma estratégia personalizada para o seu negócio."}</p>
-            </div>
-        </div>
+  // Recomendações
+  if (diagnostic.recomendacoes_especificas && diagnostic.recomendacoes_especificas.length > 0) {
+    html += `
+            <div class="recommendations-section">
+                <h4><i class="fas fa-lightbulb" style="color: var(--info); margin-right: 8px;"></i>Próximos Passos Recomendados:</h4>
+                <ul>
     `
+    diagnostic.recomendacoes_especificas.forEach((recomendacao) => {
+      html += `<li>${recomendacao}</li>`
+    })
+    html += `</ul></div>`
+  }
+
+  html += `</div>`
 
   content.innerHTML = html
 }
@@ -456,5 +504,11 @@ function showSuccess(message) {
 }
 
 // Debug (remover em produção)
-window.debugFormData = () => console.log("Form Data:", formData)
-window.debugDynamicQuestions = () => console.log("Dynamic Questions:", dynamicQuestions)
+window.debugFormData = () => {
+  console.log("Form Data:", formData)
+  console.log("Question Context:", questionContext)
+  console.log("Dynamic Questions:", dynamicQuestions)
+  
+  const collected = collectFormData()
+  console.log("Dados para API:", collected.apiData)
+}

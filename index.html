@@ -3,176 +3,680 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bioli - Em Manutenção</title>
+    <title>Quiz de Diagnóstico - Instagram & Vendas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #FF8C00;
+            --primary-light: #FFA500;
+            --primary-gradient: linear-gradient(135deg, #FF8C00 0%, #FF6347 100%);
+            --secondary: #FFF3CD;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --gray: #E5E7EB;
+            --text: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
         body {
-            background-color: #ffffff;
-            color: #333;
+            background-color: #fff8f0;
+            color: var(--text);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF8C00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            touch-action: manipulation;
             min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 25px 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .logo {
+            font-size: clamp(18px, 4vw, 20px);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: clamp(22px, 5vw, 32px);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: var(--text);
+            font-size: clamp(14px, 3.5vw, 16px);
+            margin-bottom: 15px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .reward-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        .progress-container {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
+            gap: 12px;
         }
-        
-        .logo {
-            margin-bottom: 2rem;
-        }
-        
-        .logo h1 {
-            font-size: 3rem;
-            color: #ff6a00;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        
-        .logo p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-        
-        .maintenance-icon {
-            font-size: 4rem;
-            color: #ff6a00;
-            margin: 2rem 0;
-        }
-        
-        .message {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .message h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-        
-        .message p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #666;
-        }
-        
-        .contact {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee;
-            width: 100%;
-            max-width: 500px;
-        }
-        
-        .contact p {
-            margin-bottom: 0.5rem;
-            color: #666;
-        }
-        
-        .contact a {
-            color: #ff6a00;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .contact a:hover {
-            color: #ff8c00;
-            text-decoration: underline;
-        }
-        
-        .simple-countdown {
-            margin: 1.5rem 0;
-            font-size: 1.2rem;
-            color: #ff6a00;
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
             font-weight: 600;
+            font-size: clamp(13px, 3vw, 14px);
         }
-        
-        /* Animações simples */
-        @keyframes subtle-pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        
-        .maintenance-icon {
-            animation: subtle-pulse 2s infinite;
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.5s ease;
         }
-        
-        /* Responsividade */
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: clamp(16px, 4vw, 18px);
+            color: var(--primary);
+            margin: 0 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            input[type="text"],
+            input[type="email"],
+            textarea,
+            select {
+                font-size: 16px;
+                min-height: 44px;
+            }
+
+            textarea {
+                min-height: 120px;
+            }
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .option-card {
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: clamp(13px, 3.5vw, 14px);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background-color: rgba(255, 140, 0, 0.05);
+        }
+
+        .option-card i {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .diagnostic-result {
+            background: #f8f9fa;
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
+
+        .diagnostic-result h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .problem-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 2px solid var(--warning);
+            font-size: clamp(12px, 3vw, 13px);
+        }
+
+        .problem-item h4 {
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
+
+        .next-step {
+            background: var(--secondary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: clamp(13px, 3.5vw, 14px);
+        }
+
+        .next-step h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: clamp(14px, 3.5vw, 15px);
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #c33;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: var(--text);
+            font-size: clamp(11px, 3vw, 12px);
+        }
+
+        @media (min-width: 601px) {
+            .container {
+                padding: 20px;
+            }
+
+            header {
+                padding: 30px 20px;
+                margin-bottom: 30px;
+            }
+
+            .options-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .nav-buttons {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .btn {
+                width: auto;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            .form-container {
+                padding: 15px;
+            }
+
+            .btn {
+                padding: 12px 15px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .logo h1 {
-                font-size: 2.5rem;
+            body {
+                -webkit-overflow-scrolling: touch;
             }
-            
-            .message h2 {
-                font-size: 1.7rem;
+
+            .container {
+                padding: 12px;
             }
-            
-            .message p {
-                font-size: 1rem;
+
+            .form-container {
+                padding: 18px;
+            }
+
+            input,
+            button,
+            select,
+            textarea,
+            .option-card {
+                touch-action: manipulation;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="logo">
-        <h1>BIOLI</h1>
-        
-    </div>
-    
-    <div class="maintenance-icon">
-        <i class="fas fa-tools"></i>
-    </div>
-    
-    <div class="message">
-        <h2>Site em Manutenção</h2>
-        <p>Estamos trabalhando para melhorar sua experiência. Em breve voltaremos com uma plataforma ainda melhor!</p>
-    </div>
-    
-    <div class="simple-countdown">
-        <p>Voltamos breve</p>
-    </div>
-    
-    <div class="contact">
-        <p>Precisa de ajuda? Entre em contato:</p>
-        <p>Email: <a href="mailto:joaopereiradesignfnx@gmail.com">joaopereiradesignfnx@gmai.com</a></p>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>Mentoria BiaOli</span>
+            </div>
+            <h1>Diagnóstico Estratégico: Instagram & Vendas</h1>
+            <p class="subtitle">Descubra em poucos minutos quais são as maiores oportunidades para alavancar suas vendas pelo Instagram!</p>
+            <div class="reward-badge">
+                <i class="fas fa-gift"></i>
+                <span>Ao completar, você receberá uma Pré-Análise personalizado</span>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>Progresso: <span id="progress-percentage">0%</span></span>
+                <span>Etapa <span id="current-step">1</span> de <span id="total-steps">4</span></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="diagnostic-form">
+                <!-- Seção 1: Informações Básicas -->
+                <div class="form-section active" id="section-1">
+                    <h2 class="section-title"><span class="counter">1</span> Informações Básicas</h2>
+
+                    <div class="form-group">
+                        <label for="nome_completo">Nome completo <span class="required">*</span></label>
+                        <input type="text" id="nome_completo" name="nome_completo" required placeholder="Seu nome completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Seu melhor email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome_empresa">Nome da empresa/marca <span class="required">*</span></label>
+                        <input type="text" id="nome_empresa" name="nome_empresa" required placeholder="Nome do seu negócio">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instagram">@ do Instagram da empresa <span class="required">*</span></label>
+                        <input type="text" id="instagram" name="instagram" required placeholder="@suaempresa">
+                    </div>
+
+                    <div class="nav-buttons">
+                        <div></div>
+                        <button type="button" class="btn btn-primary" onclick="nextSection()">
+                            Próxima <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Seção 2: Contexto do Negócio -->
+                <div class="form-section" id="section-2">
+                    <h2 class="section-title"><span class="counter">2</span> Contexto do Negócio</h2>
+
+                    <div class="form-group">
+                        <label for="nicho">Qual é o seu nicho/área de atuação? <span class="required">*</span></label>
+                        <input type="text" id="nicho" name="nicho" required placeholder="Ex: Moda feminina, Consultoria, Alimentação...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempo_mercado">Há quanto tempo está no mercado? <span class="required">*</span></label>
+                        <select id="tempo_mercado" name="tempo_mercado" required>
+                            <option value="">Selecione...</option>
+                            <option value="menos_6_meses">Menos de 6 meses</option>
+                            <option value="6_meses_1_ano">6 meses a 1 ano</option>
+                            <option value="1_3_anos">1 a 3 anos</option>
+                            <option value="mais_3_anos">Mais de 3 anos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estagio_negocio">Em que estágio está seu negócio? <span class="required">*</span></label>
+                        <select id="estagio_negocio" name="estagio_negocio" required>
+                            <option value="">Selecione...</option>
+                            <option value="iniciante">Iniciante (primeiras vendas)</option>
+                            <option value="crescimento">Crescimento (vendas regulares)</option>
+                            <option value="consolidado">Consolidado (negócio estável)</option>
+                            <option value="expansao">Expansão (escalando)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Qual é o principal desafio que você enfrenta no seu negócio atualmente? <span class="required">*</span></label>
+                        <div class="options-grid">
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Falta de clientes')">
+                                <i class="fas fa-users"></i>
+                                <span>Falta de clientes</span>
+                            </div>
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Baixo faturamento')">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Baixo faturamento</span>
+                            </div>
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Dificuldade em precificar')">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Dificuldade em precificar</span>
+                            </div>
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Falta de organização')">
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>Falta de organização</span>
+                            </div>
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Concorrência muito forte')">
+                                <i class="fas fa-trophy"></i>
+                                <span>Concorrência muito forte</span>
+                            </div>
+                            <div class="option-card" onclick="selectOption(this, 'principal_desafio', 'Não sei como divulgar')">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Não sei como divulgar</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="principal_desafio" name="principal_desafio" required>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-outline" onclick="prevSection()">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="generateDynamicQuestions()">
+                            Próximo <i class="fas fa-magic"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Seção 3: Perguntas Dinâmicas -->
+                <div class="form-section" id="section-3">
+                    <h2 class="section-title"><span class="counter">3</span> Perguntas Personalizadas</h2>
+                    <p style="margin-bottom: 20px; color: #6b7280;">Perguntas específicas para o seu negócio</p>
+
+                    <div id="dynamic-questions-container">
+                        <!-- As perguntas serão inseridas aqui automaticamente -->
+                    </div>
+                    
+                    <div id="dynamic-error" class="error" style="display: none;"></div>
+
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-outline" onclick="prevSection()">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">
+                            Verificar Análise <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Seção 4: Loading -->
+                <div class="form-section" id="section-loading">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <h2>Aguarde...</h2>
+                        <p>Estamos analisando suas informações e montando a melhor experiência para você...</p>
+                    </div>
+                </div>
+
+                <!-- Seção 5: Resultado -->
+                <div class="form-section" id="section-result">
+                    <div class="diagnostic-result">
+                        <h3><i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i>Diagnóstico Concluído!</h3>
+                        <p style="margin-bottom: 20px;">Aqui está sua análise personalizada:</p>
+                        
+                        <div id="diagnostic-content">
+                            <!-- O diagnóstico será inserido aqui -->
+                        </div>
+
+                        <div style="margin-top: 30px; text-align: center;">
+                            <a href="https://www.instagram.com/biaolip_/" class="btn btn-primary" target="_blank">
+                                <i class="fas fa-instagram"></i> Seguir no Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <footer>
+            <p>© 2025 BiaOli - Todos os direitos reservados</p>
+        </footer>
     </div>
 
-    <script>
-        // Simples contador regressivo
-        const returnDate = new Date();
-        returnDate.setDate(returnDate.getDate() + 2); // 2 dias a partir de hoje
-        returnDate.setHours(18, 0, 0, 0); // 18:00
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = returnDate.getTime() - now;
-            
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                
-                if (days > 0) {
-                    document.getElementById("countdown").textContent = `${days} dia${days > 1 ? 's' : ''} e ${hours} hora${hours > 1 ? 's' : ''}`;
-                } else {
-                    document.getElementById("countdown").textContent = `${hours} hora${hours > 1 ? 's' : ''}`;
-                }
-            } else {
-                document.getElementById("countdown").textContent = "em breve";
-            }
-        }
-        
-        // Atualizar a contagem regressiva a cada minuto
-        setInterval(updateCountdown, 60000);
-        updateCountdown(); // Chamar imediatamente
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
